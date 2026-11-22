@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using JanrichDanteMVC_Project.Data;
 using JanrichDanteMVC_Project.Models;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
@@ -7,6 +8,13 @@ namespace JanrichDanteMVC_Project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public HomeController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         private bool IsAuth() => !string.IsNullOrEmpty(HttpContext.Session.GetString("Username"));
 
         // --- AUTHENTICATION ---
@@ -17,12 +25,13 @@ namespace JanrichDanteMVC_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (DataStore.Admins.Any(a => a.Username == admin.Username))
+                if (_context.Admins.Any(a => a.Username == admin.Username))
                 {
                     ModelState.AddModelError("Username", "Username taken.");
                     return View(admin);
                 }
-                DataStore.Admins.Add(admin);
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
                 TempData["Msg"] = "Registered! Please login.";
                 return RedirectToAction("Login");
             }
@@ -34,7 +43,7 @@ namespace JanrichDanteMVC_Project.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            var admin = DataStore.Admins.FirstOrDefault(a => a.Username == username && a.Password == password);
+            var admin = _context.Admins.FirstOrDefault(a => a.Username == username && a.Password == password);
             if (admin != null)
             {
                 HttpContext.Session.SetString("Username", admin.Username);
@@ -52,10 +61,10 @@ namespace JanrichDanteMVC_Project.Controllers
             if (!IsAuth()) return RedirectToAction("Login");
 
             ViewBag.Admin = HttpContext.Session.GetString("Username");
-            ViewBag.Total = DataStore.Students.Count;
+            ViewBag.Total = _context.Students.Count();
             ViewBag.Search = search;
 
-            var students = DataStore.Students.AsEnumerable();
+            var students = _context.Students.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
@@ -68,7 +77,7 @@ namespace JanrichDanteMVC_Project.Controllers
         public IActionResult StudentForm(int id = 0)
         {
             if (!IsAuth()) return RedirectToAction("Login");
-            return View(id == 0 ? new Student() : DataStore.Students.FirstOrDefault(s => s.Id == id));
+            return View(id == 0 ? new Student() : _context.Students.FirstOrDefault(s => s.Id == id));
         }
 
         [HttpPost]
@@ -79,12 +88,11 @@ namespace JanrichDanteMVC_Project.Controllers
             {
                 if (student.Id == 0)
                 {
-                    student.Id = DataStore.NextStudentId++;
-                    DataStore.Students.Add(student);
+                    _context.Students.Add(student);
                 }
                 else
                 {
-                    var existing = DataStore.Students.FirstOrDefault(s => s.Id == student.Id);
+                    var existing = _context.Students.FirstOrDefault(s => s.Id == student.Id);
                     if (existing != null)
                     {
                         existing.StudentNumber = student.StudentNumber; existing.FirstName = student.FirstName;
@@ -92,6 +100,7 @@ namespace JanrichDanteMVC_Project.Controllers
                         existing.Course = student.Course; existing.YearLevel = student.YearLevel;
                     }
                 }
+                _context.SaveChanges();
                 return RedirectToAction("Dashboard");
             }
             return View(student);
@@ -101,8 +110,12 @@ namespace JanrichDanteMVC_Project.Controllers
         public IActionResult Delete(int id)
         {
             if (!IsAuth()) return RedirectToAction("Login");
-            var student = DataStore.Students.FirstOrDefault(s => s.Id == id);
-            if (student != null) DataStore.Students.Remove(student);
+            var student = _context.Students.FirstOrDefault(s => s.Id == id);
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+            }
             return RedirectToAction("Dashboard");
         }
     }

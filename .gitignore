@@ -23,8 +23,13 @@ bld/
 *.sln.docstates
 *.userprefs
 
-# Archives
+# Archives & Generated Docs
 *.zip
+*.pdf
+
+# SQLite temp WAL files
+*.db-shm
+*.db-wal
 
 # OS files
 .DS_Store

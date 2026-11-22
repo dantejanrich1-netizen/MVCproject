@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using JanrichDanteMVC_Project.Data;
 using JanrichDanteMVC_Project.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace JanrichDanteMVC_Project.Controllers
 {
     public class InstructorController : Controller
     {
-        private static List<Instructor> instructorList = new List<Instructor>();
+        private readonly AppDbContext _context;
+
+        public InstructorController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            return View(instructorList);
+            return View(_context.Instructors.ToList());
         }
 
         public IActionResult Create()
@@ -24,8 +29,8 @@ namespace JanrichDanteMVC_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                instructor.Id = instructorList.Any() ? instructorList.Max(i => i.Id) + 1 : 1;
-                instructorList.Add(instructor);
+                _context.Instructors.Add(instructor);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(instructor);
@@ -33,7 +38,7 @@ namespace JanrichDanteMVC_Project.Controllers
 
         public IActionResult Edit(int id)
         {
-            var instructor = instructorList.FirstOrDefault(i => i.Id == id);
+            var instructor = _context.Instructors.FirstOrDefault(i => i.Id == id);
             if (instructor == null) return NotFound();
             return View(instructor);
         }
@@ -43,13 +48,14 @@ namespace JanrichDanteMVC_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existing = instructorList.FirstOrDefault(i => i.Id == instructor.Id);
+                var existing = _context.Instructors.FirstOrDefault(i => i.Id == instructor.Id);
                 if (existing != null)
                 {
                     existing.FirstName = instructor.FirstName;
                     existing.LastName = instructor.LastName;
                     existing.Email = instructor.Email;
                     existing.Department = instructor.Department;
+                    _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
@@ -58,14 +64,14 @@ namespace JanrichDanteMVC_Project.Controllers
 
         public IActionResult Details(int id)
         {
-            var instructor = instructorList.FirstOrDefault(i => i.Id == id);
+            var instructor = _context.Instructors.FirstOrDefault(i => i.Id == id);
             if (instructor == null) return NotFound();
             return View(instructor);
         }
 
         public IActionResult Delete(int id)
         {
-            var instructor = instructorList.FirstOrDefault(i => i.Id == id);
+            var instructor = _context.Instructors.FirstOrDefault(i => i.Id == id);
             if (instructor == null) return NotFound();
             return View(instructor);
         }
@@ -73,10 +79,11 @@ namespace JanrichDanteMVC_Project.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var instructor = instructorList.FirstOrDefault(i => i.Id == id);
+            var instructor = _context.Instructors.FirstOrDefault(i => i.Id == id);
             if (instructor != null)
             {
-                instructorList.Remove(instructor);
+                _context.Instructors.Remove(instructor);
+                _context.SaveChanges();
             }
             return RedirectToAction("Index");
         }
