@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Dashboard">Admin Portal</a>
+            <div class="d-flex">
+                @if (!string.IsNullOrEmpty(Http.HttpContext.Session.GetString("Username")))
+                {
+                    <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a class="text-white me-3" asp-controller="Home" asp-action="Login">Login</a>
+                    <a class="text-white" asp-controller="Home" asp-action="Register">Register</a>
+                }
+            </div>
+        </div>
+    </nav>
+    <div class="container">@RenderBody()</div>
+</body>
+</html>

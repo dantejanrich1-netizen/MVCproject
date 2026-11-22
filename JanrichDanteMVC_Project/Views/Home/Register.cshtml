@@ -1,0 +1,42 @@
+﻿@model JanrichDanteMVC_Project.Models.Admin
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-sm w-100" style="max-width: 400px;">
+        <div class="card-header bg-primary text-white text-center border-0">
+            <h4 class="mb-0 py-2">Register Admin</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Register" method="post">
+                <div class="mb-2">
+                    <input asp-for="FullName" class="form-control p-2" placeholder="Full Name" />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-2">
+                    <input asp-for="Username" class="form-control p-2" placeholder="Username" />
+                    <span asp-validation-for="Username" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-2">
+                    <input asp-for="Email" type="email" class="form-control p-2" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-2">
+                    <input asp-for="Password" type="password" class="form-control p-2" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control p-2" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Register</button>
+            </form>
+            <div class="text-center mt-3">
+                <a asp-action="Login" class="text-white text-decoration-none small">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+</div>

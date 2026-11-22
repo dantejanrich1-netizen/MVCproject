@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364) !important;
+    background-attachment: fixed !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff !important;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.card, .navbar, .alert-info {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    border-radius: 16px !important;
+    color: #ffffff !important;
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, label, .navbar-brand, .nav-link, dt, dd {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+    }
+
+.btn {
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.3s ease-in-out;
+    color: #ffffff !important;
+}
+
+.btn-primary {
+    background: rgba(13, 110, 253, 0.5) !important;
+}
+
+.btn-success {
+    background: rgba(25, 135, 84, 0.5) !important;
+}
+
+.btn-danger {
+    background: rgba(220, 53, 69, 0.5) !important;
+}
+
+.btn-dark {
+    background: rgba(33, 37, 41, 0.5) !important;
+}
+
+.btn-secondary {
+    background: rgba(108, 117, 125, 0.5) !important;
+}
+
+.btn-info {
+    background: rgba(13, 202, 240, 0.5) !important;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.table {
+    color: #ffffff !important;
+    background: transparent !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: none !important;
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #ffffff !important;
+    --bs-table-striped-color: #ffffff !important;
+    --bs-table-hover-color: #ffffff !important;
+}
+
+    .table tbody tr, .table tbody td, .table thead th {
+        color: #ffffff !important;
+    }
+
+    .table thead th {
+        background: rgba(255, 255, 255, 0.1) !important;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 0 !important;
+    }
+
+    .table tbody td {
+        background: rgba(0, 0, 0, 0.2) !important;
+        border: none !important;
+        padding: 16px;
+        vertical-align: middle;
+        border-radius: 0 !important;
+    }
+
+.table-hover tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.15) !important;
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: all 0.2s ease-in-out;
+}
+
+.text-danger {
+    color: #ff8787 !important;
+    text-shadow: 0 0 8px rgba(255, 107, 107, 0.8);
+    font-weight: bold;
+}

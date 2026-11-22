@@ -1,0 +1,25 @@
+﻿@model JanrichDanteMVC_Project.Models.Instructor
+
+<div class="card shadow-sm border-0 bg-transparent p-4">
+    <h2>Create Instructor</h2>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" type="email" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Department" class="form-label"></label>
+            <input asp-for="Department" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Save</button>
+        <a asp-action="Index" class="btn btn-secondary mt-2">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,37 @@
+﻿@model JanrichDanteMVC_Project.Models.Student
+<div class="card shadow-sm mx-auto mt-4" style="max-width: 600px;">
+    <div class="card-header bg-success text-white"><h4>@(Model.Id == 0 ? "Add" : "Edit") Student</h4></div>
+    <div class="card-body">
+        <form asp-action="StudentForm" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-6 mb-2">
+                    <input asp-for="StudentNumber" class="form-control" placeholder="Student Number" />
+                    <span asp-validation-for="StudentNumber" class="text-danger small"></span>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="Course" class="form-control" placeholder="Course (e.g. BSIT)" />
+                    <span asp-validation-for="Course" class="text-danger small"></span>
+                </div>
+                <div class="col-6 mb-2">
+                    <input asp-for="YearLevel" class="form-control" placeholder="Year Level (1-5)" />
+                    <span asp-validation-for="YearLevel" class="text-danger small"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-3">Save Student</button>
+            <a asp-action="Dashboard" class="btn btn-light w-100 mt-2">Cancel</a>
+        </form>
+    </div>
+</div>
